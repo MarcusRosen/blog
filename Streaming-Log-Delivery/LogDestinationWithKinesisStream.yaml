@@ -108,7 +108,7 @@ Resources:
       FunctionName: Kinesis-Event-Retriever
       Role: !GetAtt LambdaRole.Arn
       Runtime: python3.6
-      Handler: lambda_function.lambda_handler
+      Handler: index.lambda_handler
       Timeout: 30 #seconds
       MemorySize: 128 #max memory foot print
       Code:
@@ -157,16 +157,10 @@ Resources:
               # Decode and filter events
               events = decode_raw_cloud_trail_events(kinesisData)
 
-              ####### INTEGRATION CODE GOES HERE #########
-              print(events)
-
               return f"Successfully processed {len(events)} records."
 
           def lambda_handler(event, context):
               return handle_request(event, context)
-
-
-
 
   # Event Source Mapping allowing Lambda Function to pull records from Kinesis
   LambdaEventSourceMapping:
